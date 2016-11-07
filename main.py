@@ -41,38 +41,53 @@ with open("words.txt", "r") as f:
 
     #print(result)
 
-curMap = list
 
 
-random.seed(56)
-prevWord = ""
-for i in range(0, 40):
+def getText():
+    curMap = list
+    #random.seed(56)
+    prevWord = ""
+
     result = ""
-    for j in range(0, 10):
+    for i in range(0, 40):
+        for j in range(0, 10):
 
-        if random.uniform(0, 1) < 0.0001 :
-            word = random.choice(list)
-        else :
-            word = random.choice(curMap)
-        #print(word)
-        result += word.lower()
-        result += " "
-        curMap = map2.get(prevWord + word.lower())
+            if random.uniform(0, 1) < 0.0001 :
+                word = random.choice(list)
+            else :
+                word = random.choice(curMap)
+            #print(word)
+            result += word.lower()
+            result += " "
+            curMap = map2.get(prevWord + word.lower())
 
-        prevWord = word
-        #print(curMap)
-
-
-        if curMap == None or random.uniform(0, 1) < 0.2 :
-            curMap = map.get(word)
-
-        if curMap == None:
-            curMap = list
+            prevWord = word
+            #print(curMap)
 
 
-    print(result)
+            if curMap == None or random.uniform(0, 1) < 0.2 :
+                curMap = map.get(word)
+
+            if curMap == None:
+                curMap = list
+
+        result += '<br>\n'
 
 
+    return result
 
+print "READED"
+from BaseHTTPServer import BaseHTTPRequestHandler,HTTPServer
+
+class HttpProcessor(BaseHTTPRequestHandler):
+    def do_GET(self):
+        self.send_response(200)
+        self.send_header('content-type','text/html')
+        self.end_headers()
+        self.wfile.write(getText())
+
+
+serv = HTTPServer(("localhost",8080), HttpProcessor)
+serv.serve_forever()
 
 
