@@ -5,41 +5,35 @@ import re
 list = []
 map = dict()
 map2 = dict()
+def readAll():
+    with open("words.txt", "r") as f:
+        prev2Word = ""
+        prevWord = ""
+        for line1 in f:
+            #print(line)
+            line = re.sub('[A-Z|0-9|a-z|\<|\>|\-|\=|\:|\#|\d|\&|\;|\$|\%|\/]', "", line1)
+            line = line.lower()
+            for word in line.split(" "):
 
-with open("words.txt", "r") as f:
-    prev2Word = ""
-    prevWord = ""
-    for line1 in f:
-        #print(line)
-        line = re.sub('[A-Z|0-9|a-z|\<|\>|\-|\=|\:|\#|\d|\&|\;|\$|\%|\/]', "", line1)
-        line = line.lower()
-        for word in line.split(" "):
+                string = word.replace("\n", "").replace(",", "").replace(".", "").replace("-", "").\
+                    lower().replace("?", "").replace("-","").replace("!", "").replace("(","").replace(")","").replace("\"","").lower()
+                if prevWord != "" and string != "":
+                    if map.get(prevWord) == None:
+                        map.update({prevWord: []})
+                    map.get(prevWord).append(string)
 
-            string = word.replace("\n", "").replace(",", "").replace(".", "").replace("-", "").\
-                lower().replace("?", "").replace("-","").replace("!", "").replace("(","").replace(")","").replace("\"","").lower()
-            if prevWord != "" and string != "":
-                if map.get(prevWord) == None:
-                    map.update({prevWord: []})
-                map.get(prevWord).append(string)
+                if prev2Word != "" and string != "":
+                    if map2.get(prev2Word) == None:
+                        map2.update({prev2Word: []})
+                    map2.get(prev2Word).append(string)
 
-            if prev2Word != "" and string != "":
-                if map2.get(prev2Word) == None:
-                    map2.update({prev2Word: []})
-                map2.get(prev2Word).append(string)
+                prev2Word = prevWord + string
+                prevWord = string
 
-            prev2Word = prevWord + string
-            prevWord = string
-
-            if len(string) > 3:
-                list.append(string)
-
-
-#for i in range(0, 2000):
-#    result = random.choice(list) + " " + random.choice(list) + " " + random.choice(list) + " " + random.choice(list) + " " + random.choice(list)
+                if len(string) > 3:
+                    list.append(string)
 
 
-
-    #print(result)
 
 
 
@@ -91,8 +85,9 @@ import sys
 
 port = int(str(sys.argv[1]))
 
+readAll()
+print 'readed2'
 print port
-serv = HTTPServer(("localhost", port), HttpProcessor)
+serv = HTTPServer(("0.0.0.0", port), HttpProcessor)
 serv.serve_forever()
-
 
