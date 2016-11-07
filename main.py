@@ -86,7 +86,7 @@ import sys
 port = int(str(sys.argv[1]))
 
 readAll()
-print 'readed2'
+print 'readed5'
 print port
 serv = HTTPServer(("0.0.0.0", port), HttpProcessor)
 serv.serve_forever()
