@@ -87,7 +87,12 @@ class HttpProcessor(BaseHTTPRequestHandler):
         self.wfile.write(getText())
 
 
-serv = HTTPServer(("localhost",8080), HttpProcessor)
+import sys
+
+port = int(str(sys.argv[1]))
+
+print port
+serv = HTTPServer(("localhost", port), HttpProcessor)
 serv.serve_forever()
 
 
