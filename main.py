@@ -43,7 +43,7 @@ def getText():
     prevWord = ""
 
     result = ""
-    for i in range(0, 40):
+    for i in range(0, 10):
         for j in range(0, 10):
 
             if random.uniform(0, 1) < 0.0001 :
@@ -59,7 +59,7 @@ def getText():
             #print(curMap)
 
 
-            if curMap == None or random.uniform(0, 1) < 0.2 :
+            if curMap == None or random.uniform(0, 1) < 0.5 :
                 curMap = map.get(word)
 
             if curMap == None:
