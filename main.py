@@ -59,7 +59,7 @@ def getText():
             #print(curMap)
 
 
-            if curMap == None or random.uniform(0, 1) < 0.5 :
+            if curMap == None or random.uniform(0, 1) < 0.01 :
                 curMap = map.get(word)
 
             if curMap == None:
