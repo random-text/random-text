@@ -78,7 +78,7 @@ class HttpProcessor(BaseHTTPRequestHandler):
         self.send_response(200)
         self.send_header('content-type','text/html')
         self.end_headers()
-        self.wfile.write(getText())
+        self.wfile.write('<meta charset="utf-8">\n'+getText())
 
 
 import sys
@@ -90,4 +90,3 @@ print 'readed5'
 print port
 serv = HTTPServer(("0.0.0.0", port), HttpProcessor)
 serv.serve_forever()
-
