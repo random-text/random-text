@@ -33,11 +33,21 @@ def readAll():
                 if len(string) > 3:
                     list.append(string)
 
+fakeText = "";
+with open("fake.txt", "r") as ff:
+    for line1 in ff:
+        fakeText += line1 + "<br>"
 
 
+print fakeText
 
 
 def getText():
+
+    if random.uniform(0, 1) < 0.1 :
+        return fakeText
+
+
     curMap = list
     #random.seed(56)
     prevWord = ""
